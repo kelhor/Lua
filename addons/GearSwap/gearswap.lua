@@ -25,7 +25,7 @@
 --SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 _addon.name = 'GearSwap'
-_addon.version = '0.901'
+_addon.version = '0.902'
 _addon.author = 'Byrth'
 _addon.commands = {'gs','gearswap'}
 
@@ -130,6 +130,8 @@ windower.register_event('load',function()
     windower.debug('load')
     refresh_globals()
     
+    print('GearSwap: The action packet structure may have changed and this addon might be unsafe to use.\nWe are working on it!')
+    windower.send_command('lua u gearswap')
     if world.logged_in then
         refresh_user_env()
         if debugging.general then windower.send_command('@unload spellcast;') end
