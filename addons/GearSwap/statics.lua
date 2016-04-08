@@ -1,4 +1,4 @@
---Copyright (c) 2013-2014, Byrthnoth
+--Copyright (c) 2013~2016, Byrthnoth
 --All rights reserved.
 
 --Redistribution and use in source and binary forms, with or without
@@ -28,11 +28,13 @@
  
 unify_prefix = {['/ma'] = '/ma', ['/magic']='/ma',['/jobability'] = '/ja',['/ja']='/ja',['/item']='/item',['/song']='/ma',
     ['/so']='/ma',['/ninjutsu']='/ma',['/weaponskill']='/ws',['/ws']='/ws',['/ra']='/ra',['/rangedattack']='/ra',['/nin']='/ma',
-    ['/throw']='/ra',['/range']='/ra',['/shoot']='/ra',['/monsterskill']='/ms',['/ms']='/ms',['/pet']='/ja',['Monster']='Monster'}
+    ['/throw']='/ra',['/range']='/ra',['/shoot']='/ra',['/monsterskill']='/ms',['/ms']='/ms',['/pet']='/ja',['Monster']='Monster',['/bstpet']='/ja'}
 
 action_type_map = {['/ja']='Ability',['/jobability']='Ability',['/so']='Magic',['/song']='Magic',['/ma']='Magic',['/magic']='Magic',['/nin']='Magic',['/ninjutsu']='Magic',
     ['/ra']='Ranged Attack',['/range']='Ranged Attack',['/throw']='Ranged Attack',['/shoot']='Ranged Attack',['/ms']='Ability',['/monsterskill']='Ability',
-    ['/ws']='Ability',['/weaponskill']='Ability',['/item']='Item',['/pet']='Ability',['Monster']='Monster Move'}
+    ['/ws']='Ability',['/weaponskill']='Ability',['/item']='Item',['/pet']='Ability',['/bstpet']='Ability',['Monster']='Monster Move'}
+
+bstpet_range = {min=672,max=782} -- Range of the JA resource devoted to BST jugpet abilities
     
 delay_map_to_action_type = {['Ability']=3,['Magic']=20,['Ranged Attack']=10,['Item']=10,['Monster Move']=10,['Interruption']=3}
     
@@ -91,7 +93,7 @@ uses = {false,true,true,true,true,false,false,false,false,false,true,false,true,
 unable_to_use = T{17,18,55,56,87,88,89,90,104,191,308,313,325,410,428,561,574,579,580,581,661,665,
     12,16,34,35,40,47,48,49,71,72,76,78,84,91,92,95,96,106,111,128,154,155,190,192,193,198,
     199,215,216,217,218,219,220,233,246,247,307,315,316,328,337,338,346,347,348,349,356,411,443,444,
-    445,446,514,516,517,518,523,524,525,547,568,569,575,649,660,662,666,700,701,62} -- Probably don't need some of these (event action) 
+    445,446,514,516,517,518,523,524,525,547,568,569,575,649,660,662,666,700,701,62,717} -- Probably don't need some of these (event action) 
     -- 94 removed - "You must wait longer to perform that action." -- I think this is only sent in response to engage packets.
 
 -- 192 : param_1 = Ability ID
@@ -202,19 +204,20 @@ _global.current_event = 'None'
 
 _settings = {debug_mode = false, demo_mode = false, show_swaps = false}
 
+-- _ExtraData is persistent information that isn't included in the windower API.
+-- Because player, pet, and so forth are regularly regenerated from the windower API,
+-- this table is necessary to maintain information that goes beyond the windower API.
 _ExtraData = {
         player = {},
-        spell = {},
-        alliance = {},
         pet = {},
-        fellow = {},
         world = {in_mog_house = false,conquest=false},
     }
 
 unbridled_learning_set = {['Thunderbolt']=true,['Harden Shell']=true,['Absolute Terror']=true,
     ['Gates of Hades']=true,['Tourbillion']=true,['Pyric Bulwark']=true,['Bilgestorm']=true,
     ['Bloodrake']=true,['Droning Whirlwind']=true,['Carcharian Verve']=true,['Blistering Roar']=true,
-    ['Uproot']=true,['Crashing Thunder']=true,['Polar Roar']=true}
+    ['Uproot']=true,['Crashing Thunder']=true,['Polar Roar']=true,['Mighty Guard']=true,['Cruel Joke']=true,
+    ['Cesspool']=true,['Tearing Gust']=true}
 
 tool_map = {
         ['Katon: Ichi'] = res.items[1161],
@@ -332,7 +335,7 @@ region_to_zone_map = {
     [22] = S{11,12,13},
     [24] = S{24,25,26,27,28,29,30,31,32},
     }
-
+    
 
 function initialize_globals()
     local pl = windower.ffxi.get_player()
@@ -358,6 +361,7 @@ function initialize_globals()
     pet.isvalid = false
     fellow = make_user_table()
     fellow.isvalid = false
+    partybuffs = {}
 
     items = windower.ffxi.get_items()
     if not items then

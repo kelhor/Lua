@@ -169,7 +169,7 @@ next_sequence_offset   = 0
 item_names             = T{}
 global_storages        = T{}
 storages_path          = 'data/storages.json'
-storages_order_tokens  = L{'temporary', 'inventory', 'wardrobe', 'safe', 'storage', 'locker', 'satchel', 'sack', 'case'}
+storages_order_tokens  = L{'temporary', 'inventory', 'wardrobe', 'wardrobe 2', 'safe', 'safe 2', 'storage', 'locker', 'satchel', 'sack', 'case'}
 -- This is to maintain sorting order. I don't know why this was done, but omitting this will sort the bags arbitrarily, which (I guess) was not intended
 storages_order         = S(res.bags:map(string.gsub-{' ', ''} .. string.lower .. table.get-{'english'})):sort(function(name1, name2)
     local index1 = storages_order_tokens:find(name1)
@@ -189,7 +189,7 @@ storages_order         = S(res.bags:map(string.gsub-{' ', ''} .. string.lower ..
 
     return index1 < index2
 end)
-storage_slips_order    = L{'slip 01', 'slip 02', 'slip 03', 'slip 04', 'slip 05', 'slip 06', 'slip 07', 'slip 08', 'slip 09', 'slip 10', 'slip 11', 'slip 12', 'slip 13', 'slip 14', 'slip 15', 'slip 16', 'slip 17', 'slip 18', 'slip 19', 'slip 20', 'slip 21'}
+storage_slips_order    = L{'slip 01', 'slip 02', 'slip 03', 'slip 04', 'slip 05', 'slip 06', 'slip 07', 'slip 08', 'slip 09', 'slip 10', 'slip 11', 'slip 12', 'slip 13', 'slip 14', 'slip 15', 'slip 16', 'slip 17', 'slip 18', 'slip 19', 'slip 20', 'slip 21', 'slip 22', 'slip 23'}
 merged_storages_orders = storages_order + storage_slips_order
 
 function search(query, export)

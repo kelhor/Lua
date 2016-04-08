@@ -1,3 +1,29 @@
+--Copyright (c) 2013~2016, Byrthnoth
+--All rights reserved.
+
+--Redistribution and use in source and binary forms, with or without
+--modification, are permitted provided that the following conditions are met:
+
+--    * Redistributions of source code must retain the above copyright
+--      notice, this list of conditions and the following disclaimer.
+--    * Redistributions in binary form must reproduce the above copyright
+--      notice, this list of conditions and the following disclaimer in the
+--      documentation and/or other materials provided with the distribution.
+--    * Neither the name of <addon name> nor the
+--      names of its contributors may be used to endorse or promote products
+--      derived from this software without specific prior written permission.
+
+--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+--ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+--WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+--DISCLAIMED. IN NO EVENT SHALL <your name> BE LIABLE FOR ANY
+--DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+--(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+--LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+--ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+--(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+--SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
 -------------------------------------------------------------------------------------------------------------------
 -- Primary entry point.
 -------------------------------------------------------------------------------------------------------------------
@@ -36,7 +62,7 @@ function validate_inventory(filter)
     local extra_items = search_sets_for_items_in_bag(items.inventory, filter)
     
     local display_list = get_item_names(extra_items):sort(insensitive_sort)
-    display_list:map(function(item) msg.add_to_chat(120, (string.gsub(item, "^%l", string.upper)) ) end)
+    display_list:map(function(item) msg.add_to_chat(120, windower.to_shift_jis((string.gsub(item, "^%l", string.upper))) ) end)
     msg.addon_msg(123,'Final count = '..tostring(display_list:length()))
 end
 
@@ -47,7 +73,7 @@ function validate_sets(filter)
     local missing_items = search_bags_for_items_in_set(sets, filter)
 
     local display_list = get_item_names(missing_items):sort(insensitive_sort)
-    display_list:map(function(item) msg.add_to_chat(120, (string.gsub(item, "^%l", string.upper)) ) end)
+    display_list:map(function(item) msg.add_to_chat(120, windower.to_shift_jis((string.gsub(item, "^%l", string.upper))) ) end)
     msg.addon_msg(123,'Final count = '..tostring(display_list:length()))
 end
 
@@ -161,7 +187,7 @@ function search_bags_for_items_in_set(gear_table, filter, missing_items, stack)
         if type(name) == 'string' and name ~= 'empty' and name ~= '' and type(i) == 'string' then
             if not slot_map[i] then
                 msg.addon_msg(123,windower.to_shift_jis(tostring(i))..' contains a "name" element but is not a valid slot.')
-            elseif tryfilter(lowercase_name(name), filter) and not find_in_inv(items.inventory, name, aug) and not find_in_inv(items.wardrobe, name, aug) then
+            elseif tryfilter(lowercase_name(name), filter) and not find_in_inv(items.inventory, name, aug) and not find_in_inv(items.wardrobe, name, aug) and not find_in_inv(items.wardrobe2, name, aug) then
                 missing_items:add(lowercase_name(name))
             end
         elseif type(name) == 'table' and name ~= empty  then

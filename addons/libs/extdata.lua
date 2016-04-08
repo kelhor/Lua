@@ -296,7 +296,12 @@ augment_values = {
         [0x15F] = {{stat="Occ. quickens spellcasting ", offset=1,percent=true}},
         [0x160] = {{stat="Occ. grants dmg. bonus based on TP ", offset=1,percent=true}},
         [0x161] = {{stat="TP Bonus ", offset=1, multiplier=5}},
-        [0x163] = {{stat='Potency of "Cure" effect received', offset=1, percent=true}},
+        [0x162] = {{stat="Quadruple Attack ", offset=1}},
+
+        [0x164] = {{stat='Potency of "Cure" effect received', offset=1, percent=true}},
+        
+        [0x168] = {{stat="Save TP ", offset=1, multiplier=10}},
+        
         [0x16A] = {{stat="Magic Damage ", offset=1}},
         [0x16B] = {{stat="Chance of successful block ", offset=1}},
         [0x16E] = {{stat="Blood Pact ab. del. II ", offset=1, multiplier=-1}},
@@ -539,6 +544,7 @@ augment_values = {
         [0x3F5] = {{stat="Water Affinity: Magic Damage", offset=0},{stat="Water Affinity: Recast time", offset=1, multiplier=-6, percent=true}},
         [0x3F6] = {{stat="Light Affinity: Magic Damage", offset=0},{stat="Light Affinity: Recast time", offset=1, multiplier=-6, percent=true}},
         [0x3F7] = {{stat="Dark Affinity: Magic Damage", offset=0},{stat="Dark Affinity: Recast time", offset=1, multiplier=-6, percent=true}},
+        
         [0x400] = {{stat="Backhand Blow:DMG:", offset=1,multiplier=5,percent=true}},
         [0x401] = {{stat="Spinning Attack:DMG:", offset=1,multiplier=5,percent=true}},
         [0x402] = {{stat="Howling Fist:DMG:", offset=1,multiplier=5,percent=true}},
@@ -596,8 +602,6 @@ augment_values = {
         [0x436] = {{stat="Sniper Shot:DMG:", offset=1,multiplier=5,percent=true}},
         [0x437] = {{stat="Detonator:DMG:", offset=1,multiplier=5,percent=true}},
         [0x438] = {{stat="Weapon Skill:DMG:", offset=1,multiplier=5,percent=true}},
-        --0x43F to 0x47F are bullshit augments like Viper Bite:Fire+5 and Spinning Attack:173
-        -- They do not exist in game afaik, so I'm not going to bother writing them
         
         [0x4E0] = {{stat="Enh. Mag. eff. dur. ", offset=1}},
         [0x4E1] = {{stat="Helix eff. dur. ", offset=1}},
@@ -739,6 +743,98 @@ augment_values = {
         [0x5B0] = {{stat='Enhances "Inspire" effect', offset=0,multiplier=0}},
         [0x5B1] = {{stat='Enhances "Sleight of Sword" effect', offset=0,multiplier=0}},
         
+        [0x600] = {{stat="Backhand Blow:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x601] = {{stat="Spinning Attack:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x602] = {{stat="Howling Fist:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x603] = {{stat="Dragon Kick:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x604] = {{stat="Viper Bite:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x605] = {{stat="Shadowstitch:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x606] = {{stat="Cyclone:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x607] = {{stat="Evisceration:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x608] = {{stat="Burning Blade:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x609] = {{stat="Shining Blade:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x60A] = {{stat="Circle Blade:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x60B] = {{stat="Savage Blade:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x60C] = {{stat="Freezebite:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x60D] = {{stat="Shockwave:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x60E] = {{stat="Ground Strike:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x60F] = {{stat="Sickle Moon:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x610] = {{stat="Gale Axe:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x611] = {{stat="Spinning Axe:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x612] = {{stat="Calamity:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x613] = {{stat="Decimation:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x614] = {{stat="Iron Tempest:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x615] = {{stat="Sturmwind:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x616] = {{stat="Keen Edge:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x617] = {{stat="Steel Cyclone:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x618] = {{stat="Nightmare Scythe:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x619] = {{stat="Spinning Scythe:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x61A] = {{stat="Vorpal Scythe:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x61B] = {{stat="Spiral Hell:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x61C] = {{stat="Leg Sweep:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x61D] = {{stat="Skewer:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x61E] = {{stat="Vorpal Thrust:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x61F] = {{stat="Impulse Drive:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x620] = {{stat="Blade: To:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x621] = {{stat="Blade: Chi:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x622] = {{stat="Blade: Ten:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x623] = {{stat="Blade: Ku:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x624] = {{stat="Tachi: Goten:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x625] = {{stat="Tachi: Jinpu:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x626] = {{stat="Tachi: Koki:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x627] = {{stat="Tachi: Kasha:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x628] = {{stat="Brainshaker:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x629] = {{stat="Skullbreaker:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x62A] = {{stat="Judgment:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x62B] = {{stat="Black Halo:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x62C] = {{stat="Rock Crusher:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x62D] = {{stat="Shell Crusher:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x62E] = {{stat="Full Swing:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x62F] = {{stat="Retribution:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x630] = {{stat="Dulling Arrow:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x631] = {{stat="Blast Arrow:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x632] = {{stat="Arching Arrow:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x633] = {{stat="Empyreal Arrow:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x634] = {{stat="Hot Shot:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x635] = {{stat="Split Shot:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x636] = {{stat="Sniper Shot:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x637] = {{stat="Detonator:DMG:", offset=1,multiplier=5,percent=true}},
+        [0x638] = {{stat="Weapon Skill:DMG:", offset=1,multiplier=5,percent=true}},
+        
+        [0x700] = {{stat="Pet: STR", offset=1}},
+        [0x701] = {{stat="Pet: DEX", offset=1}},
+        [0x702] = {{stat="Pet: VIT", offset=1}},
+        [0x703] = {{stat="Pet: AGI", offset=1}},
+        [0x704] = {{stat="Pet: INT", offset=1}},
+        [0x705] = {{stat="Pet: MND", offset=1}},
+        [0x706] = {{stat="Pet: CHR", offset=1}},
+        [0x707] = {{stat="Pet: STR", offset=1,multiplier=-1}},
+        [0x708] = {{stat="Pet: DEX", offset=1,multiplier=-1}},
+        [0x709] = {{stat="Pet: VIT", offset=1,multiplier=-1}},
+        [0x70A] = {{stat="Pet: AGI", offset=1,multiplier=-1}},
+        [0x70B] = {{stat="Pet: INT", offset=1,multiplier=-1}},
+        [0x70C] = {{stat="Pet: MND", offset=1,multiplier=-1}},
+        [0x70D] = {{stat="Pet: CHR", offset=1,multiplier=-1}},
+        [0x70E] = {{stat="Pet: STR", offset=1},{stat="Pet: DEX", offset=1},{stat="Pet: VIT", offset=1}},
+        [0x70E] = {{stat="Pet:", offset=0,multiplier=0}},
+        [0x70F] = {{stat="Pet:", offset=0,multiplier=0}},
+        [0x710] = {{stat="Pet:", offset=0,multiplier=0}},
+        [0x711] = {{stat="Pet:", offset=0,multiplier=0}},
+        [0x712] = {{stat="Pet:", offset=0,multiplier=0}},
+        [0x713] = {{stat="Pet:", offset=0,multiplier=0}},
+        [0x714] = {{stat="Pet:", offset=0,multiplier=0}},
+        [0x715] = {{stat="Pet:", offset=0,multiplier=0}},
+        [0x716] = {{stat="Pet:", offset=0,multiplier=0}},
+        [0x717] = {{stat="Pet:", offset=0,multiplier=0}},
+        [0x718] = {{stat="Pet:", offset=0,multiplier=0}},
+        [0x719] = {{stat="Pet:", offset=0,multiplier=0}},
+        [0x71A] = {{stat="Pet:", offset=0,multiplier=0}},
+        [0x71B] = {{stat="Pet:", offset=0,multiplier=0}},
+        [0x71C] = {{stat="Pet:", offset=0,multiplier=0}},
+        [0x71D] = {{stat="Pet:", offset=0,multiplier=0}},
+        [0x71E] = {{stat="Pet:", offset=0,multiplier=0}},
+        [0x71F] = {{stat="Pet:", offset=0,multiplier=0}},
+        
         [0x7FF] = {{stat='???', offset=0}},
     },
     [2] = {
@@ -770,10 +866,54 @@ augment_values = {
         [0x1B] = {{stat="Mag. Evasion",offset=256}},
         [0x1C] = {{stat="DMG:",offset=1}},
         [0x1D] = {{stat="DMG:",offset=256}},
+        
+        [0x74] = {{stat='Blood Pact Dmg.',offset=1}},
+        [0x75] = {{stat='"Avatar perpetuation cost"',offset=1}},
+        [0x76] = {{stat='"Blood Pact" ability delay',offset=1}},
+        [0x77] = {{stat='Haste',offset=1,percent=true}},
+        [0x78] = {{stat='Enmity',offset=1}},
+        [0x79] = {{stat='Enmity',offset=1,multiplier=-1}},
+        [0x7A] = {{stat='Crit. hit rate',offset=1,percent=true}},
+        [0x7B] = {{stat='"Cure" spellcasting time ',offset=1,multiplier=-1,percent=true}},
+        [0x7C] = {{stat='"Cure" potency ',offset=1,percent=true}},
+        [0x7D] = {{stat='"Refresh"',offset=1}},
+        [0x7E] = {{stat='Spell interruption rate down ',offset=1,percent=true}},
+        [0x7F] = {{stat='Potency of "Cure" effect received ',offset=1,percent=true}},
         [0x80] = {{stat='Pet: "Mag.Atk.Bns."',offset=1}},
         [0x81] = {{stat="Pet: Mag. Acc.",offset=1}},
         [0x82] = {{stat="Pet: Attack",offset=1}},
         [0x83] = {{stat="Pet: Accuracy",offset=1}},
+        [0x84] = {{stat="Pet: Enmity",offset=1}},
+        [0x85] = {{stat="Pet: Enmity",offset=1}},
+        [0x86] = {{stat="Pet: HP",offset=1}},
+        [0x87] = {{stat="Pet: MP",offset=1}},
+        [0x88] = {{stat="Pet: STR",offset=1}},
+        [0x89] = {{stat="Pet: DEX",offset=1}},
+        [0x8A] = {{stat="Pet: VIT",offset=1}},
+        [0x8B] = {{stat="Pet: AGI",offset=1}},
+        [0x8C] = {{stat="Pet: INT",offset=1}},
+        [0x8D] = {{stat="Pet: MND",offset=1}},
+        [0x8E] = {{stat="Pet: CHR",offset=1}},
+        
+        [0x98] = {{stat='Pet: "Dbl. Atk."',offset=1}},
+        [0x99] = {{stat='Pet: Damage taken ',offset=1,multiplier=-1,percent=true}},
+        [0x9A] = {{stat='Pet: "Regen"',offset=1}},
+        [0x9B] = {{stat='Pet: Haste',offset=1,percent=true}},
+        [0x9C] = {{stat='Automaton: "Cure" potency ',offset=1,percent=true}},
+        [0x9C] = {{stat='Automaton: "Fast Cast"',offset=1}},
+        
+        [0xAB] = {{stat='"Dual Wield"',offset=1}},
+        [0xAC] = {{stat='Damage Taken ',offset=1,multiplier=-1,percent=true}},
+        [0xAD] = {{stat='All songs ',offset=1}},
+        
+        [0xB1] = {{stat='"Conserve MP"',offset=1}},
+        [0xB2] = {{stat='"Counter"',offset=1}},
+        [0xB3] = {{stat='"Triple Atk."',offset=1}},
+        [0xB4] = {{stat='"Fast Cast"',offset=1}},
+        [0xB5] = {{stat='"Blood Boon"',offset=1}},
+        [0xB6] = {{stat='"Subtle Blow"',offset=1}},
+        [0xB7] = {{stat='"Rapid Shot"',offset=1}},
+        [0xB8] = {{stat='"Recycle"',offset=1}},
         [0xB9] = {{stat='"Store TP"',offset=1}},
         [0xBA] = {{stat='"Dbl.Atk."',offset=1}},
         [0xBB] = {{stat='"Snapshot"',offset=1}},
@@ -1518,8 +1658,11 @@ function decode.Linkshell(str)
         g  = 17*math.floor(str:byte(7)/16),
         b  = 17*str:byte(8)%16,
         status_id = str:byte(9),
-        status = status_map[str:byte(9)],
-        name = tools.bit.bit_string(6,str:sub(10,name_end),name_map)}
+        status = status_map[str:byte(9)]}
+    
+    if rettab.status_id ~= 0 then
+        rettab.name = tools.bit.bit_string(6,str:sub(10,name_end),name_map)
+    end
     
     return rettab
 end
@@ -1726,7 +1869,7 @@ function decode.Lamp(str)
         entry_time = str:unpack('I',13),
         zone_id = str:unpack('H',17),
         status_id = str:byte(3)%4,
-        status = statuses[rettab.status_id],
+        status = statuses[str:byte(3)%4],
         _unknown1 = str:unpack('i',5)
     }
     
@@ -1851,13 +1994,20 @@ end
 function extdata.compare_augments(goal_augs,current)
     if not current then return false end
     local cur = T{}
-    for i,v in pairs(table.filter(current,-functions.equals('none'))) do
+    
+    local fn = function (str)
+        return type(str) == 'string' and str ~= 'none'
+    end
+    
+    for i,v in pairs(table.filter(current,fn)) do
         cur:append(v)
     end
+    
     local goal = T{}
-    for i,v in pairs(table.filter(goal_augs,-functions.equals('none'))) do
+    for i,v in pairs(table.filter(goal_augs,fn)) do
         goal:append(v)
     end
+    
     local num_augments = 0
     local aug_strip = function(str)
         return str:lower():gsub('[^%-%w,]','')

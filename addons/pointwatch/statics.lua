@@ -90,6 +90,7 @@ function initialize()
         total = 0,
         tnjp = 30000,
         number_of_job_points = 0,
+        maximum_job_points = 500,
     }
 
     
@@ -111,12 +112,12 @@ function initialize()
     
     sparks = {
         current = 0,
-        maximum = 50000,
+        maximum = 99999,
     }
     
     accolades = {
         current = 0,
-        maximum = 50000,
+        maximum = 99999,
     }
     
     abyssea = {

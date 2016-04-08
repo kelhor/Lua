@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <addons>
   <addon>
     <name>Example</name>
@@ -95,6 +95,13 @@
     <support>http://www.ffxiah.com/player/Ragnarok/Ikonic</support>
   </addon>
   <addon>
+    <name>bluGuide</name>
+    <author>Anissa</author>
+    <description>Change your blue magic on the fly with this clickable menu.  Sort your spells by traits, buffs, procs, and more.</description>
+    <bugtracker>https://github.com/AniAniBobbani/Lua/issues</bugtracker>
+    <support>http://www.ffxiah.com/player/Cerberus/Anissa</support>
+  </addon>
+  <addon>
     <name>boxdestroyer</name>
     <author>Seth VanHeulen (Acacia@Odin)</author>
     <description>Tracks and displays info about possible combinations for treasure caskets.</description>
@@ -185,6 +192,13 @@
     <support>http://www.ffxiah.com/player/Bahamut/Krizz</support>
   </addon>
   <addon>
+    <name>Enemybar</name>
+    <author>mmckee</author>
+    <description>This is an addon for Windower4 for FFXI. It creates a big health bar for the target to make it easy to see.</description>
+    <bugtracker>https://github.com/mjmckee/Lua/issues</bugtracker>
+    <support>http://www.ffxiah.com/player/Ragnarok/Pesche</support>
+  </addon>
+  <addon>
     <author>Giuliano Riccio (Zohno@Phoenix)</author>
     <name>enternity</name>
     <description>Enters "Enter" automatically when prompted during a cutscene or when talking to NPCs. It will not skip choice dialog boxes.</description>
@@ -196,6 +210,13 @@
     <author>Aureus</author>
     <description>Allows developers to run arbitrary lua code in the console.</description>
     <bugtracker>https://github.com/Windower/Lua/issues</bugtracker>
+    <support>http://mibbit.com/#windower@irc.ffochat.com</support>
+  </addon>
+  <addon>
+    <name>FastCS</name>
+    <author>Cairthenn</author>
+    <description>Dramatically speeds up cutscenes by disabling the frame rate cap. Requires the config plugin.</description>
+    <bugtracker>https://github.com/cairface/Lua/issues</bugtracker>
     <support>http://mibbit.com/#windower@irc.ffochat.com</support>
   </addon>
   <addon>
@@ -369,11 +390,25 @@
     <support>http://www.ffxiah.com/player/Phoenix/Zohno</support>
   </addon>
   <addon>
+    <name>RAWR</name>
+    <author>Genoxd</author>
+    <description>Plays a sound effect when your unity leader says something about dragons spawning.</description>
+    <bugtracker>https://github.com/geno3302/Lua</bugtracker>
+    <support>http://www.ffxiah.com/player/Lakshmi/Genoxd</support>
+  </addon>
+  <addon>
     <name>reive</name>
     <author>Giuliano Riccio (Zohno@Phoenix)</author>
     <description>Tracks exp, bayld, momentum scores and bonuses during a reive.</description>
     <bugtracker>https://github.com/giulianoriccio/Lua/issues</bugtracker>
     <support>http://www.ffxiah.com/player/Phoenix/Zohno</support>
+  </addon>
+  <addon>
+    <name>Remember</name>
+    <author>Byrth</author>
+    <description>Should request spawn packets for players / mobile NPCs that failed to spawn.</description>
+    <bugtracker>https://github.com/Byrth/Lua-Byrth/issues</bugtracker>
+    <support>http://mibbit.com/#windower@irc.ffochat.com</support>
   </addon>
   <addon>
     <name>Respond</name>
@@ -458,6 +493,13 @@
     <description>Displays a small box indicating your current movement speed modifier (+/- X%).</description>
     <bugtracker>https://github.com/z16/Lua/issues</bugtracker>
     <support>http://www.ffxiah.com/player/Leviathan/Arcon</support>
+  </addon>
+  <addon>
+    <name>SpellCheck</name>
+    <author>Damien Dennehy (Zubis@Asura)</author>
+    <description>This addon lists spells you haven't unlocked yet.</description>
+    <bugtracker>https://github.com/DamienDennehy/Lua/issues</bugtracker>
+    <support>http://www.ffxiah.com/player/Asura/Zubis</support>
   </addon>
   <addon>
     <name>StaggerTrack</name>

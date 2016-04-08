@@ -1,4 +1,4 @@
---Copyright (c) 2013, Byrthnoth
+--Copyright (c) 2013~2016, Byrthnoth
 --All rights reserved.
 
 --Redistribution and use in source and binary forms, with or without
@@ -117,7 +117,8 @@ function load_user_files(job_id,user_file)
         send_command=send_cmd_user,windower=user_windower,include=include_user,
         midaction=user_midaction,pet_midaction=user_pet_midaction,set_language=set_language,
         show_swaps = show_swaps,debug_mode=debug_mode,include_path=user_include_path,
-        register_unhandled_command=user_unhandled_command,
+        register_unhandled_command=user_unhandled_command,move_spell_target=move_spell_target,
+        language=language,
         
         -- Library functions
         string=string,math=math,table=table,set=set,list=list,T=T,S=S,L=L,pack=pack,
@@ -203,7 +204,7 @@ function refresh_player(dt,user_event_flag)
     if not user_event_flag or dt > 0.5 then
         pl = windower.ffxi.get_player()
         if not pl or not pl.vitals then return end
-        
+                
         player_mob_table = windower.ffxi.get_mob_by_index(pl.index)
         if not player_mob_table then return end
         
@@ -213,7 +214,11 @@ function refresh_player(dt,user_event_flag)
         end
         update_job_names()
         player.status_id = player.status
-        player.status = res.statuses[player.status].english
+        if res.statuses[player.status] then
+            player.status = res.statuses[player.status].english
+        else
+            print(player.status_id)
+        end
         player.nation_id = player.nation
         player.nation = res.regions[player.nation_id][language] or 'None'
     
@@ -245,6 +250,7 @@ function refresh_player(dt,user_event_flag)
     if items.satchel then player.satchel = refresh_item_list(items.satchel) end
     if items.case then player.case = refresh_item_list(items.case) end
     if items.wardrobe then player.wardrobe = refresh_item_list(items.wardrobe) end
+    if items.wardrobe2 then player.wardrobe2 = refresh_item_list(items.wardrobe2) end
     
     -- Monster tables for the target and subtarget.
     player.target = target_complete(windower.ffxi.get_mob_by_target('t'))
@@ -349,7 +355,7 @@ function refresh_player(dt,user_event_flag)
         fellow.isvalid=false
     end
     
-    refresh_buff_active(player.buffs)
+    table.reassign(buffactive,convert_buff_list(player.buffs))
     
     for global_variable_name,extradatatable in pairs(_ExtraData) do
         if _G[global_variable_name] then
@@ -478,9 +484,19 @@ end
 ---- to the individual subtables (total number of people in each party.
 -----------------------------------------------------------------------------------
 function refresh_group_info(dt,user_event_flag)
-    clean_alliance()
+    if not alliance or #alliance == 0 then
+        alliance = make_alliance()
+    end
+    
+    local c_alliance = make_alliance()
     
     local j = windower.ffxi.get_party() or {}
+    
+    c_alliance.leader = j.alliance_leader -- Test whether this works
+    c_alliance[1].leader = j.party1_leader
+    c_alliance[2].leader = j.party2_leader
+    c_alliance[3].leader = j.party3_leader
+    
     for i,v in pairs(j) do
         if type(v) == 'table' and v.mob and v.mob.race then
             v.mob.race_id = v.mob.race
@@ -501,34 +517,70 @@ function refresh_group_info(dt,user_event_flag)
         end
         
         if allyIndex and partyIndex then
-            alliance[allyIndex][partyIndex] = v
-            alliance[allyIndex].count = alliance[allyIndex].count + 1
-            alliance.count = alliance.count + 1
-        end
-    end
-end
-
--- Cleans the current alliance array while keeping the subtable pointers intact.
-function clean_alliance()
-    if not alliance or #alliance == 0 then
-        alliance = make_user_table()
-        alliance[1]={count=0}
-        alliance[2]={count=0}
-        alliance[3]={count=0}
-        alliance.count=0
-    else
-        for ally_party = 1,3 do
-            for i,v in pairs(alliance[ally_party]) do
-                alliance[ally_party][i] = nil
+            if v.mob and partybuffs[v.mob.index] then
+                v.buffactive = convert_buff_list(partybuffs[v.mob.index].buffs)
+            elseif v.mob and v.mob.index == player.index then
+                v.buffactive = buffactive
             end
-            alliance[ally_party].count = 0
+            c_alliance[allyIndex][partyIndex] = v
+            c_alliance[allyIndex].count = c_alliance[allyIndex].count + 1
+            c_alliance.count = c_alliance.count + 1
+            
+            if v.mob then
+                if v.mob.id == c_alliance[1].leader then
+                    c_alliance[1].leader = v
+                elseif v.mob.id == c_alliance[2].leader then
+                    c_alliance[2].leader = v
+                elseif v.mob.id == c_alliance[3].leader then
+                    c_alliance[3].leader = v
+                end
+                
+                if v.mob.id == c_alliance.leader then
+                    c_alliance.leader = v
+                end
+            end
         end
-        alliance.count = 0
     end
+    
+        
+    -- Clear the old structure while maintaining the party references:
+    for ally_party = 1,3 do
+        for i,v in pairs(alliance[ally_party]) do
+            alliance[ally_party][i] = nil
+        end
+        alliance[ally_party].count = 0
+    end
+    alliance.count = 0
+    alliance.leader = nil
+    
+    -- Reassign to the new structure
+    table.reassign(alliance[1],c_alliance[1])
+    table.reassign(alliance[2],c_alliance[2])
+    table.reassign(alliance[3],c_alliance[3])
+    alliance.count = c_alliance.count
+    alliance.leader = c_alliance.leader
 end
 
 -----------------------------------------------------------------------------------
---Name: refresh_buff_active(bufflist)
+--Name: make_alliance()
+--Args:
+---- none
+-----------------------------------------------------------------------------------
+--Returns:
+---- one blank alliance structure
+-----------------------------------------------------------------------------------
+function make_alliance()
+    local all = make_user_table()
+    all[1]={count=0,leader=nil}
+    all[2]={count=0,leader=nil}
+    all[3]={count=0,leader=nil}
+    all.count=0
+    all.leader=nil
+    return all
+end
+
+-----------------------------------------------------------------------------------
+--Name: convert_buff_list(bufflist)
 --Args:
 ---- bufflist (table): List of buffs from windower.ffxi.get_player()['buffs']
 -----------------------------------------------------------------------------------
@@ -538,8 +590,8 @@ end
 ---- of that string present in the buff array. So two marches would give
 ---- buffarr.march==2.
 -----------------------------------------------------------------------------------
-function refresh_buff_active(bufflist)
-    buffarr = {}
+function convert_buff_list(bufflist)
+    local buffarr = {}
     for i,v in pairs(bufflist) do
         if res.buffs[v] then -- For some reason we always have buff 255 active, which doesn't have an entry.
             local buff = res.buffs[v][language]:lower()
@@ -556,7 +608,7 @@ function refresh_buff_active(bufflist)
             end
         end
     end
-    table.reassign(buffactive,buffarr)
+    return buffarr
 end
 
 -----------------------------------------------------------------------------------
@@ -645,7 +697,7 @@ function pathsearch(files_list)
     -- data
     
     local gearswap_data = windower.addon_path .. 'data/'
-    local gearswap_appdata = os.getenv('APPDATA') .. '/Windower/GearSwap/'
+    local gearswap_appdata = (os.getenv('APPDATA') or '') .. '/Windower/GearSwap/'
     
     local search_path = {
         [1] = windower.addon_path .. 'libs-dev/',
@@ -683,5 +735,3 @@ function pathsearch(files_list)
     
     return false
 end
-
--- Much force update
