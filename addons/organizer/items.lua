@@ -361,7 +361,7 @@ end
 function item_tab:put_away(usable_bags)
     org_debug("move", "Putting away "..res.items[self.id].english)
     local current_items = self._parent._parent
-    usable_bags = usable_bags or {1,9,4,2,5,6,7,8, 10}
+    usable_bags = usable_bags or {1,9,4,2,5,6,7,8,10}
     local bag_free
     for _,v in ipairs(usable_bags) do
         local bag_max = windower.ffxi.get_bag_info(v).max
@@ -371,7 +371,9 @@ function item_tab:put_away(usable_bags)
         end
     end
     if bag_free then
-        self:transfer(bag_free,self.count)
+        return self:transfer(bag_free,self.count)
+    else
+        return false
     end
 end
 
